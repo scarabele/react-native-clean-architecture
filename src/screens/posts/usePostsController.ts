@@ -13,21 +13,20 @@ const usePostsControler = () => {
   const user = route.params?.user;
 
   useEffect(() => {
+    const loadPosts = async () => {
+      setIsLoading(true);
+      const getPostsByUser = new GetPostsByUser(repositoryFactory);
+      const output = await getPostsByUser.execute({id: user?.id});
+      const mapper = output.map(post => ({
+        id: post.id,
+        title: post.title,
+        body: post.body,
+      }));
+      setPosts(mapper);
+      setIsLoading(false);
+    };
     loadPosts();
-  }, []);
-
-  const loadPosts = async () => {
-    setIsLoading(true);
-    const getPostsByUser = new GetPostsByUser(repositoryFactory);
-    const output = await getPostsByUser.execute({id: user?.id});
-    const mapper = output.map(post => ({
-      id: post.id,
-      title: post.title,
-      body: post.body,
-    }));
-    setPosts(mapper);
-    setIsLoading(false);
-  };
+  }, [repositoryFactory, user]);
 
   return {
     posts,

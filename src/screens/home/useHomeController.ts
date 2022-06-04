@@ -14,29 +14,29 @@ const useHomeController = () => {
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
 
   useEffect(() => {
+    const download = async () => {
+      setIsDownloading(true);
+      const downloadAll = new DownloadAll(repositoryFactory);
+      await downloadAll.execute();
+      setIsDownloading(false);
+      loadUsers();
+    };
+
+    const loadUsers = async () => {
+      setIsLoading(true);
+      const getUsers = new GetUsers(repositoryFactory);
+      const output = await getUsers.execute();
+      const mapper = output.map(user => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      }));
+      setUsers(mapper);
+      setIsLoading(false);
+    };
+
     download();
-  }, []);
-
-  const download = async () => {
-    setIsDownloading(true);
-    const downloadAll = new DownloadAll(repositoryFactory);
-    await downloadAll.execute();
-    setIsDownloading(false);
-    loadUsers();
-  };
-
-  const loadUsers = async () => {
-    setIsLoading(true);
-    const getUsers = new GetUsers(repositoryFactory);
-    const output = await getUsers.execute();
-    const mapper = output.map(user => ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    }));
-    setUsers(mapper);
-    setIsLoading(false);
-  };
+  }, [repositoryFactory]);
 
   const onPressUser = (user: User) => {
     navigation.navigate('Profile', {user});

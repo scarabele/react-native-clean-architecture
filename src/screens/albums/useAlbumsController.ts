@@ -13,17 +13,17 @@ const Albums = () => {
   const user = route.params?.user;
 
   useEffect(() => {
-    loadAlbums();
-  }, []);
+    const loadAlbums = async () => {
+      setIsLoading(true);
+      const getAlbumsByUser = new GetAlbumsByUser(repositoryFactory);
+      const output = await getAlbumsByUser.execute({id: user?.id});
+      const mapper = output.map(album => ({id: album.id, title: album.title}));
+      setAlbums(mapper);
+      setIsLoading(false);
+    };
 
-  const loadAlbums = async () => {
-    setIsLoading(true);
-    const getAlbumsByUser = new GetAlbumsByUser(repositoryFactory);
-    const output = await getAlbumsByUser.execute({id: user?.id});
-    const mapper = output.map(album => ({id: album.id, title: album.title}));
-    setAlbums(mapper);
-    setIsLoading(false);
-  };
+    loadAlbums();
+  }, [repositoryFactory, user]);
 
   return {
     albums,

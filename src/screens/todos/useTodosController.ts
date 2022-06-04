@@ -13,21 +13,21 @@ const Todos = () => {
   const user = route.params?.user;
 
   useEffect(() => {
-    loadTodos();
-  }, []);
+    const loadTodos = async () => {
+      setIsLoading(true);
+      const getTodosByUser = new GetTodosByUser(repositoryFactory);
+      const output = await getTodosByUser.execute({id: user?.id});
+      const mapper = output.map(todo => ({
+        id: todo.id,
+        title: todo.title,
+        completed: todo.completed,
+      }));
+      setTodos(mapper);
+      setIsLoading(false);
+    };
 
-  const loadTodos = async () => {
-    setIsLoading(true);
-    const getTodosByUser = new GetTodosByUser(repositoryFactory);
-    const output = await getTodosByUser.execute({id: user?.id});
-    const mapper = output.map(todo => ({
-      id: todo.id,
-      title: todo.title,
-      completed: todo.completed,
-    }));
-    setTodos(mapper);
-    setIsLoading(false);
-  };
+    loadTodos();
+  }, [repositoryFactory, user]);
 
   return {
     todos,
