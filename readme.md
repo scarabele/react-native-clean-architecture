@@ -9,7 +9,7 @@
   Desta forma para trocar o banco de dados é só instanciar a fábrica no arquivo <b>src/hooks/useFactory</b>
 </p>
 <p>
-  Instruções para executar o projeto:
+  <h3>Instruções para executar o projeto:</h3>
   <br />
   yarn install;
   <br />
