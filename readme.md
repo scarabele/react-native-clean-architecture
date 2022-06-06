@@ -8,3 +8,25 @@
   <br />
   Desta forma para trocar o banco de dados é só instanciar a fábrica no arquivo <b>src/hooks/useFactory</b>
 </p>
+<p>
+  Instruções para executar o projeto:
+  <br />
+  yarn install;
+  <br />
+  <br />
+  <b>Para ios:</b>
+  <br />
+  cd ios && pod install && cd ..;
+  <br />
+  yarn ios;
+  <br />
+  <br />
+  <b>Para android:</b>
+  <br />
+  yarn android;
+  <br />
+  <br />
+  <b>Para tests:</b>
+  <br />
+  yarn testFinal;
+</p>
