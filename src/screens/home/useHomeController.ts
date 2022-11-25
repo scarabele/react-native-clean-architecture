@@ -36,7 +36,7 @@ const useHomeController = () => {
     };
 
     download();
-  }, [repositoryFactory]);
+  }, []);
 
   const onPressUser = (user: User) => {
     navigation.navigate('Profile', {user});

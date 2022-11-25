@@ -26,7 +26,7 @@ const usePostsControler = () => {
       setIsLoading(false);
     };
     loadPosts();
-  }, [repositoryFactory, user]);
+  }, [user]);
 
   return {
     posts,

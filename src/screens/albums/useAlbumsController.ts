@@ -23,7 +23,7 @@ const Albums = () => {
     };
 
     loadAlbums();
-  }, [repositoryFactory, user]);
+  }, [user]);
 
   return {
     albums,

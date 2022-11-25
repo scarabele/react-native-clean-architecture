@@ -27,7 +27,7 @@ const Todos = () => {
     };
 
     loadTodos();
-  }, [repositoryFactory, user]);
+  }, [user]);
 
   return {
     todos,
